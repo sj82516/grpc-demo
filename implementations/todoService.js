@@ -55,11 +55,10 @@ function GetToDoListByAuthor(call) {
         }
 
         if (isAny === false) {
-            call.emit('error', grpc.status.PERMISSION_DENIED)
-            // call.end()
+            return call.emit('error', grpc.status.PERMISSION_DENIED)
         }
 
-        // call.end()
+        call.end()
     }
     main()
 }
