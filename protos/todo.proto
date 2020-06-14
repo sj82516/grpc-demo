@@ -1,0 +1,32 @@
+import "google/protobuf/empty.proto";
+
+syntax = "proto3";
+
+package ToDoService;
+
+message ToDoItem {
+    string title=1;
+    string author=2;
+    bool isDone=3;
+    double createDate=4;
+}
+
+message ToDoList {
+    repeated ToDoItem ToDoList = 1;
+}
+
+message GetQueryOptions {
+    string author = 1;
+}
+
+message CustomError {
+    string code = 1;
+    string message = 2;
+}
+
+service ToDoService {
+    rpc CreateToDo (ToDoItem) returns (ToDoList);
+    rpc createMultiToDo (stream ToDoItem) returns (google.protobuf.Empty);
+    rpc GetToDoListByAuthor (GetQueryOptions) returns (stream ToDoItem);
+    rpc GetToDoListByAuthorOnFly (stream GetQueryOptions) returns (stream ToDoItem);
+}
